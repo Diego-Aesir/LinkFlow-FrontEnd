@@ -1,0 +1,10 @@
+<div class="header">
+    <a href="/home">
+      <h2 class="title">{{ title }}</h2>
+    </a>
+    <div class="user-actions">
+        <span *ngIf="isLogged" class="username" (click)="userPage(username)">Welcome, {{ username }}</span>
+        <button *ngIf="!isLogged" class="btn-login" (click)="loginPage()">Login / Register</button>
+    </div>
+  </div>
+  

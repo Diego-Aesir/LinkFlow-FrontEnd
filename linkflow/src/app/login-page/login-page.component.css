@@ -1,0 +1,82 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.formBox {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.formBox label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formBox input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.formBox div {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.register {
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #4CAF50;
+    background-color: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.register:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .formContainer {
+        width: 90%;
+    }
+
+    .formBox input, button[type="submit"], .register {
+        width: 100%;
+    }
+}

@@ -1,0 +1,6 @@
+
+
+.postsContainer {
+    display: flex;
+    flex-direction: column;
+}

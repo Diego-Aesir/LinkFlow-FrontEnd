@@ -1,0 +1,29 @@
+<div class="postsContainer">
+    <div class="postInfo">
+        <h2 class="userName" [routerLink]="['/userDetails', username]">{{username}}</h2>
+        <h5 class="time"> {{ post?.date | date: 'dd/MM/yyyy HH:mm' }}</h5>
+    </div>
+    <div class="postContent" [routerLink]="['/postDetails', post.id]">
+        <div class="tagsContainer">
+            <div *ngFor="let tag of post.tags">
+                <p [routerLink]="['/search', tag]">{{tag}}</p>
+            </div>
+        </div>
+        <h1> {{post?.title}}</h1>
+        <img class="postImage" alt="Post photo" [src]="post?.photo"> 
+        <p class="postText">{{ post?.text }}</p>
+    </div>
+    <div class="postActions">
+        <button (click)="startCommenting()">Comment</button>
+        <button (click)="sharePost()">Share</button>
+    </div>
+    <div *ngIf="isCommenting" class="postComments">
+        <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <input class="commentInput" formControlName="comment" autofocus type="text" placeholder="Write down your thoughts"/> 
+            <button class="uploadComment" type="submit" [disabled]="commentForm.invalid">Comment</button>
+        </form>
+    </div>
+    <div [routerLink]="['/commentsSpan', post.id]" class="postComments" *ngFor="let comment of comments | slice:0:3">   
+        <app-comments [comment]="comment"></app-comments>
+    </div>
+</div>
