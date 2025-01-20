@@ -6,7 +6,7 @@ export class User {
         public pronoun: string = '',
         public password: string = '',
         public profile: string = '',
-         public gender: string = '',
+        public gender: string = '',
         public photo: File | null = null,
         public isGoogle: string = 'false'
     ){};

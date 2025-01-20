@@ -5,15 +5,15 @@
     </div>
     <div class="postContent">
         <div class="tagsContainer">
-            <div *ngFor="let tag of post.tags">
+            <div *ngFor="let tag of post?.tags">
                 <p [routerLink]="['/search', tag]">{{tag}}</p>
             </div>
         </div>
         <h1> {{post?.title}}</h1>
-        <img class="postImage" alt="Post photo" [src]="post?.photo"> 
+        <img *ngIf="post.photo" class="postImage" alt="Post photo" [src]="getFullImageUrl(post?.photo)"> 
         <p class="postText">{{ post?.text }}</p>
     </div>
-    <div class="">
+    <div>
         <form class="InputComment" [formGroup]="commentForm" (ngSubmit)="addComment()">
             <input class="commentInput" formControlName="comment" autofocus type="text" placeholder="Write down your thoughts"/> 
             <button class="uploadComment" type="submit" [disabled]="commentForm.invalid">Comment</button>

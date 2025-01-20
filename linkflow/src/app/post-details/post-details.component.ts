@@ -51,7 +51,6 @@ export class PostDetailsComponent implements OnInit {
       error: (err) => window.alert(err),
       complete: () => {
         this.getPostOwner(this.post.ownerId);
-        console.log(this.post.id);
         this.getPostComments(this.postId);
         this.loading = false
       }
@@ -71,7 +70,7 @@ export class PostDetailsComponent implements OnInit {
     this.loading = true;
     this.api.getCommentFromPost(postId).subscribe({
       next: (response) => this.comments = response,
-      error: (err) => {console.log(err); this.comments = null},
+      error: (err) => {this.comments = null},
       complete: () => this.loading = false
     });
   }
@@ -95,10 +94,12 @@ export class PostDetailsComponent implements OnInit {
             this.post.id,
             userId,
             newComment,
-            null
+            []
           );
   
-          this.api.createComment(comment);
+          this.api.createComment(comment).subscribe();
+          this.getPostComments(this.postId);
+          window.location.reload();
         }
       }
     }
@@ -111,5 +112,9 @@ export class PostDetailsComponent implements OnInit {
       } else {
         this.clipboard.copy(postUrl);
       }
+    }
+
+    getFullImageUrl(imagePath: string): string {
+      return `${this.api.apiUrl}${imagePath}`;
     }
 }

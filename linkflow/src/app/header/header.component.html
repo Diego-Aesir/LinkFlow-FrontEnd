@@ -3,8 +3,12 @@
       <h2 class="title">{{ title }}</h2>
     </a>
     <div class="user-actions">
-        <span *ngIf="isLogged" class="username" (click)="userPage(username)">Welcome, {{ username }}</span>
+        <div *ngIf="isLogged" class="user-name" (click)="isClicked = !isClicked">Welcome, {{ username }}</div>
         <button *ngIf="!isLogged" class="btn-login" (click)="loginPage()">Login / Register</button>
+        <div *ngIf="isClicked" class="dropdown-menu">
+          <h5 class="dropdown-menu-option" (click)="userPage(this.username)"> Settings </h5>
+          <h5 class="dropdown-menu-option" (click)="userLogout()"> Logout </h5>
+        </div>
     </div>
   </div>
   

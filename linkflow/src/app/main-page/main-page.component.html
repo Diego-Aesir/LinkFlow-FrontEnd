@@ -1,5 +1,63 @@
 
+<div class="container">
+    <div *ngIf="this.userId" class="userActions">
+        <h2 class="createPost" (click)="createPost = !createPost"> Create post</h2>
+        <h2 class="userSettings" (click)="userPage()"> Settings </h2>
+        <h2 class="logout" (click)="userLogout()"> Logout </h2>
+    </div>
+    <div class="postsContainer">
+        <form [formGroup]="Search" (ngSubmit)="onSearch()">
+            <input type="text" id="searchInput" formControlName="searchInput" placeholder="Search anything" required/>
+        </form>
+        <div *ngFor="let post of posts">
+            <app-posts [post]="post"></app-posts>
+        </div>
+    </div>
+</div>
+<div *ngIf="createPost">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="formContainer">
+        <div class="formBox">
+            <label for="postTitle">Post Title</label>
+            <input type="text" id="postTitle" name="postTitle" [(ngModel)]="post.title" required />
+          </div>
 
-<div class="postsContainer" *ngFor="let post of posts">
-    <app-posts [post]="post"></app-posts>
+          <div class="formBox">
+            <label for="postText">Post Text</label>
+            <input type="text" id="postText" name="postText" [(ngModel)]="post.text" required />
+          </div>
+        
+          <div class="formBox">
+            <label for="tags">Tags:</label>
+            <div class="tags-container">
+              <div *ngFor="let tag of post.tags; let i = index" class="tag-item">
+                <input
+                  type="text"
+                  [(ngModel)]="post.tags[i]"
+                  name="tag-{{ i }}"
+                  placeholder="Tag"
+                  required
+                />
+                <button type="button" (click)="removeTag(i)">Remove</button>
+              </div>
+              <button type="button" (click)="addTag()">Add Tag</button>
+            </div>
+          </div>
+          
+        
+          <div class="formBox">
+            <label for="photo">Post Photo</label>
+            <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" />
+          </div>
+          
+          <div *ngIf="errors.length > 0" class="error-messages">
+            <ul>
+              <li class="error" *ngFor="let error of errors">{{ error }}</li>
+            </ul>
+          </div>
+      
+          <div>
+            <button type="submit">Create Post</button>
+            <button class="cancelButton" (click)="createPost = !createPost">Cancel</button>
+          </div>
+    </form>
 </div>

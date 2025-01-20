@@ -3,25 +3,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: #343a40; 
+  color: #f8f9fa;
   padding: 15px 30px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #495057;
 }
 
 h2 {
   font-size: 24px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  color: #f8f9fa;
 }
 
 h2:hover {
   transform: scale(1.05);
+  color: #adb5bd;
 }
 
 .user-actions {
@@ -31,30 +33,56 @@ h2:hover {
 }
 
 .btn-login {
-  color: #28a745;
-  border: 2px solid #28a745;
+  color: #f8f9fa;
+  border: 2px solid #f8f9fa;
   padding: 8px 20px;
   cursor: pointer;
   border-radius: 25px;
   font-weight: bold;
   font-size: 14px;
+  background-color: transparent;
   transition: all 0.3s ease;
 }
 
 .btn-login:hover {
-  background-color: #28a745;
-  color: white;
+  background-color: #adb5bd;
+  color: #343a40;
   transform: scale(1.05);
 }
 
 .user-name {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
-  color: #e1e1e1;
+  color: #e9ecef;
   margin-right: 10px;
+  cursor: pointer;
 }
 
-.user-name span {
-  font-weight: bold;
-  color: #ffcb05;
+.dropdown-menu {
+  position: absolute;
+  width: 5vw;
+  top: 6vh;
+  right: 30px;
+  background-color: #495057;
+  border: 1px solid #343a40;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu-option {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #f8f9fa;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu-option:hover {
+  background-color: #adb5bd;
+  color: #343a40;
 }

@@ -22,6 +22,7 @@ export class PostsComponent implements OnInit {
   isCommenting: boolean = false;
   commentForm: FormGroup; 
   comments: any;
+  seeComments = false;
 
   constructor(
     private api: ApiService,
@@ -63,13 +64,9 @@ export class PostsComponent implements OnInit {
     this.loading = true;
     this.api.getCommentFromPost(postId).subscribe({
       next: (response) => this.comments = response,
-      error: (err) => {console.log(err); this.comments = null},
+      error: (err) => {this.comments = null},
       complete: () => this.loading = false
     });
-  }
-
-  startCommenting(): void {
-    this.isCommenting = true;
   }
 
   addComment(): void {
@@ -91,7 +88,8 @@ export class PostsComponent implements OnInit {
         );
 
         this.api.createComment(comment).subscribe({
-          error: (err) => window.alert(err)
+          error: (err) => window.alert(err),
+          complete: () => this.getPostComments(this.post.id)
         });
       }
     }
@@ -105,5 +103,17 @@ export class PostsComponent implements OnInit {
     } else {
       this.clipboard.copy(postUrl);
     }
+  }
+
+  openComments() {
+    if(this.seeComments == false) {
+      this.seeComments = true;
+    } else {
+      this.seeComments = false;
+    }
+  }
+
+  getFullImageUrl(imagePath: string): string {
+    return `${this.api.apiUrl}${imagePath}`;
   }
 }

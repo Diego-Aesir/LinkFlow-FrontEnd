@@ -1,8 +1,9 @@
 export class Posts {
     constructor(
-        public title: string,
-        public photo: string,
-        public tags: string[],
-        public ownerId: string
+        public title: string = '',
+        public text: string = '',
+        public photo: File | null = null,
+        public tags: string[] = [],
+        public ownerId: string = ''
     ) {}
 }

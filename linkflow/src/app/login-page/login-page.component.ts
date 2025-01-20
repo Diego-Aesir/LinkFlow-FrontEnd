@@ -41,12 +41,11 @@ export class LoginPageComponent implements OnInit {
 
       this.api.loginUser(formData).subscribe({
         next: (response) => this.response = response,
-        error: (err) => {console.log(err); window.alert(err)},
+        error: (err) => {window.alert(err)},
         complete: () => {
           this.userService.setUserId(this.response.id);
           this.auth.setToken(this.response.jwt);
-          window.location.reload();
-          this.router.navigateByUrl("/home");
+          window.location.assign("/home");
         }
       });
     } else {

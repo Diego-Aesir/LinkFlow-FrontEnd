@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comment } from '../models/comment.model';
 import { CommentToComment } from '../models/comment_to_comment.model';
@@ -9,7 +9,7 @@ import { CommentToComment } from '../models/comment_to_comment.model';
 })
 
 export class ApiService {
-  private apiUrl = 'http://localhost:6060';
+  public apiUrl = 'http://localhost:6060';
   private userBase = 'api/User';
   private postBase = 'api/Posts';
   private commentBase = 'api/Comments';
@@ -41,12 +41,21 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/${this.userBase}/${id}/username`);
   }
 
+  getUserPublicInfoByUsername(username: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${this.userBase}/${username}/public`);
+
+  }
+
   updateUser(userId: string, form: FormData) {
     return this.http.put(`${this.apiUrl}/${this.userBase}/update/${userId}`, form);
   }
 
   deleteUser(userId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${this.userBase}/delete/${userId}`);
+  }
+
+  verifyJwt(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${this.userBase}/jwt`);
   }
 
   createPost(form: FormData): Observable<any> {
@@ -105,8 +114,12 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/${this.commentBase}/user/${userId}`);
   }
 
-  updateComment(commentId: string, comment: Comment) {
-    return this.http.put(`${this.apiUrl}/${this.commentBase}/update/${commentId}`, comment);
+  updateComment(commentId: string, commentText: string) {
+    const body = { text: commentText };
+    return this.http.put(`${this.apiUrl}/${this.commentBase}/update/${commentId}`, body, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })});
   }
 
   deleteComment(commentId: string, ownerId: string) {
@@ -125,8 +138,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/${this.commentToCommentBase}/user/${userId}`);
   }
 
-  updateCommentToComment(commentId: string, comment: Comment) {
-    return this.http.put(`${this.apiUrl}/${this.commentToCommentBase}/update/${commentId}`, comment);
+  updateCommentToComment(commentId: string, commentText: string) {
+    const body = { text: commentText };
+    return this.http.put(`${this.apiUrl}/${this.commentToCommentBase}/update/${commentId}`, body, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
   deleteCommentToComment(commentId: string, ownerId: string) {

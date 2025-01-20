@@ -38,7 +38,13 @@
       <label for="photo">Profile Photo</label>
       <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" />
     </div>
-  
+    
+    <div *ngIf="errors.length > 0" class="error-messages">
+      <ul>
+        <li class="error" *ngFor="let error of errors">{{ error }}</li>
+      </ul>
+    </div>
+
     <div>
       <button type="submit">Register</button>
     </div>

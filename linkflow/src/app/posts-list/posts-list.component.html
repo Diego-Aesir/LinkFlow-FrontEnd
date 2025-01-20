@@ -10,20 +10,23 @@
             </div>
         </div>
         <h1> {{post?.title}}</h1>
-        <img class="postImage" alt="Post photo" [src]="post?.photo"> 
+        <img *ngIf="post.photo" class="postImage" alt="Post photo" [src]="getFullImageUrl(post?.photo)"> 
         <p class="postText">{{ post?.text }}</p>
     </div>
     <div class="postActions">
-        <button (click)="startCommenting()">Comment</button>
+        <button (click)="isCommenting = !isCommenting">Comment</button>
         <button (click)="sharePost()">Share</button>
+        <button (click)="openComments()"> See Comments</button>
     </div>
-    <div *ngIf="isCommenting" class="postComments">
+    <div *ngIf="isCommenting" class="addComment">
         <form [formGroup]="commentForm" (ngSubmit)="addComment()">
             <input class="commentInput" formControlName="comment" autofocus type="text" placeholder="Write down your thoughts"/> 
             <button class="uploadComment" type="submit" [disabled]="commentForm.invalid">Comment</button>
         </form>
     </div>
-    <div [routerLink]="['/commentsSpan', post.id]" class="postComments" *ngFor="let comment of comments | slice:0:3">   
-        <app-comments [comment]="comment"></app-comments>
+    <div *ngIf="seeComments" class="postComments">
+        <div *ngFor="let comment of comments">   
+            <app-comments [comment]="comment"></app-comments>
+        </div>
     </div>
 </div>

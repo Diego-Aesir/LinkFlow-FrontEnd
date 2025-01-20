@@ -1,1 +1,32 @@
-<p>{{comment.text}}</p>
+<div class="commentContainer">
+    <div class="commentInfo">
+        <h4 class="userName" [routerLink]="['/userDetails', username]"> {{username}}</h4>
+        <h5 class="time">{{comment.timeStamp | date: 'dd/MM/yyyy HH:mm'}}</h5>
+    </div>
+    <div class="commentContent">
+        <p>{{comment.text}}</p>
+    </div>
+    <div class="commentActions">
+        <button (click)="isCommenting = !isCommenting">Answer</button>
+        <h5 class="commentSpan" (click)="seeComments = !seeComments; getCommentsOfComment()">See all the answers [{{this.commentCount}}]</h5>
+        <h5 class="commentSpan" *ngIf="isOwner" (click)="editComment = !editComment"> Update comment</h5>
+        <h5 class="commentSpan" *ngIf="isOwner" (click)="deleteComment()"> Delete Text</h5>
+    </div>
+    <form class="commentInput" [formGroup]="asnwerInput" *ngIf="isCommenting" (ngSubmit)="onSubmit()">
+        <label class="commentLabel" for="newComment">Comment:</label>
+        <textarea id="newComment" formControlName="answer" autofocus placeholder="Write down your thoughts"></textarea>
+        <button class="uploadComment" type="submit" [disabled]="asnwerInput.invalid">Comment</button>
+    </form>
+    <div class="commentsOfComments" *ngIf="seeComments">
+        <div *ngFor="let comment of this.commentsOfComment">
+            <app-comments [comment]="comment"></app-comments>
+        </div>
+    </div>
+    <div style="margin-top: 30px;" *ngIf="editComment">
+        <form class="updateCommentInput" [formGroup]="asnwerInput" (ngSubmit)="updateComment()">
+            <label class="updateCommentLabel" for="answer">Update Comment:</label>
+            <textarea id="updateCommentInput" formControlName="answer" autofocus placeholder="Write down your thoughts"></textarea>
+            <button class="uploadComment" type="submit" [disabled]="asnwerInput.invalid">Comment</button>
+        </form>
+    </div>
+</div>

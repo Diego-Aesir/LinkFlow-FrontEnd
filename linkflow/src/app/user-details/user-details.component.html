@@ -1,1 +1,85 @@
-<p>{{username}}</p>
+<div class="container">
+    <div class="userInfo">
+        <button *ngIf="isUser" (click)="update = !update">Change settings</button>
+        <img class="userImage" [src]="getFullImageUrl(userInfo?.photo)" alt="Profile Photo">
+        <p >Username: {{userInfo?.userName}}</p>
+        <p >Name: {{userInfo?.name}}</p>
+        <p *ngIf="userInfo?.pronoun">Pronoun: {{userInfo?.pronoun}}</p>
+        <p *ngIf="userInfo?.gender">Gender: {{userInfo?.gender}}</p>
+        <p *ngIf="userInfo?.profile">Description: <br>{{userInfo?.profile}}</p>
+    </div>
+    <div class="userActions">
+      <div>
+        <h2> Recents posts from this user: </h2>
+        <div class="postsContainer">
+          <div *ngFor="let post of posts">
+            <h4 class="postTitle" [routerLink]="['/postDetails', post.id]"> {{post.title}}</h4>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2> Recents comments from this user: </h2>
+        <div class="commentContainer" >
+          <div *ngFor="let comment of comments">   
+            <app-comments [comment]="comment"></app-comments>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="updateContainer" *ngIf="update">
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="formContainer">
+      <div class="formBox">
+        <label for="userName">Username</label>
+        <input type="text" id="userName" name="userName" [(ngModel)]="user.userName"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" [(ngModel)]="user.name"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="user.userEmail"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="pronoun">Pronoun</label>
+        <input type="text" id="pronoun" name="pronoun" [(ngModel)]="user.pronoun"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" name="gender" [(ngModel)]="user.gender"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="user.password"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="profile">Profile</label>
+        <input type="text" id="profile" name="profile" [(ngModel)]="user.profile"/>
+      </div>
+    
+      <div class="formBox">
+        <label for="photo">Profile Photo</label>
+        <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" />
+      </div>
+      
+      <div *ngIf="errors.length > 0" class="error-messages">
+        <ul>
+          <li class="error" *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+  
+      <div>
+        <button type="submit">Update User</button>
+      </div>
+      <div>
+        <button class="cancel" (click)="update = !update">Cancel</button>
+      </div>
+    </form>
+</div>

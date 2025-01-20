@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   response: any;
   user: User = new User();
+  errors: string[] = [];
 
   constructor(
     private api: ApiService,
@@ -25,6 +26,13 @@ export class RegisterComponent {
   ) {}
 
   onSubmit() {
+    this.errors = [];
+
+    if (!this.validateUsername()) return;
+    if (!this.validateName()) return;
+    if (!this.validateEmail()) return;
+    if (!this.validatePassword()) return;
+
     const form = new FormData();
     form.append('UserName', this.user.userName);
     form.append('Name', this.user.name);
@@ -35,19 +43,19 @@ export class RegisterComponent {
     form.append('Profile', this.user.profile);
     form.append('isGoogle', "false");
 
-    if(this.user.photo) {
+    if (this.user.photo) {
       form.append('Photo', this.user.photo, this.user.photo.name);
     }
 
     this.api.createUser(form).subscribe({
       next: (response) => this.response = response,
-      error: (err) => window.alert(err),
+      error: (err) => { 
+        window.alert("Wasn't possible to register this user, please verify 'username' or 'email' if it's already taken"); 
+      },
       complete: () => {
-        console.log(this.response);
         this.auth.setToken(this.response.jwt);
         this.userService.setUserId(this.response.id);
-        window.location.reload();
-        this.router.navigateByUrl("/home");
+        window.location.assign("/home");
       }
     });
   }
@@ -57,5 +65,64 @@ export class RegisterComponent {
     if (file) {
       this.user.photo = file;
     }
+  }
+
+  validateUsername(): boolean {
+    if (!this.user.userName || this.user.userName.trim().length < 3) {
+      this.errors.push("Username must have at least 3 characters.");
+      return false;
+    }
+
+    const usernamePattern = /^[a-zA-Z0-9_]+$/;
+    if (!usernamePattern.test(this.user.userName)) {
+      this.errors.push("Username must only contain letters, numbers, or underscores.");
+      return false;
+    }
+
+    return true;
+  }
+
+  validateName(): boolean {
+    if (!this.user.name || this.user.name.trim().length < 3) {
+      this.errors.push("Name must have at least 3 characters.");
+      return false;
+    }
+    return true;
+  }
+
+  validateEmail(): boolean {
+    if (!this.user.userEmail || this.user.userEmail.trim().length === 0) {
+      this.errors.push("Email is required.");
+      return false;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(this.user.userEmail)) {
+      this.errors.push("Email is invalid.");
+      this.errors.push("Ex: teste@test.com");
+      return false;
+    }
+
+    return true;
+  }
+
+  validatePassword(): boolean {
+    if (!this.user.password || this.user.password.trim().length === 0) {
+      this.errors.push("Password is required.");
+      return false;
+    }
+
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+    if (!passwordPattern.test(this.user.password)) {
+      this.errors.push("Password must be at least 6 characters long, include both letters, numbers, and at least one special character (e.g., '!, @, #, $, %, ^, &, *').");
+      return false;
+    }
+
+    if (!/[!@#$%^&*]/.test(this.user.password)) {
+      this.errors.push("Password must include at least one special character (e.g., '!, @, #, $, %, ^, &, *').");
+      return false;
+    }
+
+    return true;
   }
 }

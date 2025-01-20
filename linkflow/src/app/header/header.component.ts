@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
   userId: string | null = "";
   username: string | null = "";
+  isClicked = false;
 
   constructor(
       private userService : UserService,
@@ -53,5 +54,12 @@ export class HeaderComponent implements OnInit {
 
   userPage(username: any) {
     this.router.navigate(['/userDetails', username]);
+  }
+
+  userLogout() {
+    if(window.confirm("Are you sure you want to logout?")) {
+      localStorage.clear();
+      window.location.assign("/home");
+    }
   }
 }
