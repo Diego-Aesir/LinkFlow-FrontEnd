@@ -101,10 +101,10 @@ export class CommentsComponent implements OnInit {
 
   verifyIfIsCommentToComment(commentId: string) {
     this.api.getCommentToCommentById(commentId).subscribe({
-      next: (response) => {
+      next: () => {
         this.isCommentToComment = true;
       },
-      error: (err) => {
+      error: () => {
         this.isCommentToComment = false;
       }
     });
@@ -114,7 +114,7 @@ export class CommentsComponent implements OnInit {
     if(this.isCommentToComment) {
       this.api.getCommentToCommentById(commentId).subscribe({
         next: (response) => this.comment = response,
-        error: (err) => window.alert("Could not retrieve answers from this Comment")
+        error: () => window.alert("Could not retrieve answers from this Comment")
       });
     } else {
       this.api.getComment(commentId).subscribe({

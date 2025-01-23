@@ -1,0 +1,111 @@
+.formBox {
+    margin-bottom: 15px;
+}
+
+.formBox label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.formBox input[type="text"],
+.formBox input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.tags-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tag-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tag-item input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.tag-item button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tag-item button:hover {
+    background-color: #c0392b;
+}
+
+.tags-container button {
+    align-self: flex-start;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tags-container button:hover {
+    background-color: #2980b9;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1e8449;
+}
+
+.error-messages {
+    background-color: #ffdddd;
+    padding: 10px;
+    border: 1px solid #e74c3c;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.error-messages .error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .formContainer {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .postsContainer {
+        padding: 5px;
+    }
+
+    .userActions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

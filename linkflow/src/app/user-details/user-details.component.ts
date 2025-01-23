@@ -45,7 +45,7 @@ export class UserDetailsComponent implements OnInit {
   getUser() {
     if(this.username != null) {
       this.api.getUserPublicInfoByUsername(this.username).subscribe({
-        next: (response) => {this.userInfo = response; console.log(response)},
+        next: (response) => {this.userInfo = response;},
         error: () => window.alert("Error while retriaving this user information"),
         complete: () => {
           this.verifyUser();

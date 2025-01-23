@@ -1,1 +1,21 @@
-<p>{{subject}}</p>
+<div class="container">
+    <h1> Results from: {{this.subject}}</h1>
+    <div *ngIf="this.user != null" class="user">
+        <h2>User:</h2>
+        <h3 class="user-name" [routerLink]="['/userDetails', this.user?.userName]">{{this.user.userName}}</h3>
+    </div>
+    <div class="posts">
+        <h2>Posts with this title:</h2>
+        <div *ngIf="this.posts != null">
+            <h3 class="post-title" [routerLink]="['/postDetails', post.id]" *ngFor="let post of posts">{{post?.title}}</h3>
+        </div>
+        <h3 *ngIf="this.posts == null" class="no-results">Posts with the given title was not found</h3>
+    </div>
+    <div class="postsWTags">
+        <h2>Posts with this tag:</h2>
+        <div *ngIf="this.postsFromTag != null">
+            <h3 class="post-tag" [routerLink]="['/postDetails', post.id]" *ngFor="let post of postsFromTag" >{{post.title}}</h3>
+        </div>
+        <h3 *ngIf="this.postsFromTag == null" class="no-results">Post with given Tag was not found</h3>
+    </div>
+</div>

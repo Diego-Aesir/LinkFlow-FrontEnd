@@ -8,10 +8,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Comment } from '../models/comment.model';
 import { UserService } from '../api/user.service';
+import { UpdatePostComponent } from "../../update-post/update-post.component";
 
 @Component({
   selector: 'app-posts',
-  imports: [CommonModule, CommentsComponent, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, CommentsComponent, RouterModule, ReactiveFormsModule, UpdatePostComponent],
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.css'
 })
@@ -23,6 +24,8 @@ export class PostsComponent implements OnInit {
   commentForm: FormGroup; 
   comments: any;
   seeComments = false;
+  isPostOwner = false;
+  updatePost = false;
 
   constructor(
     private api: ApiService,
@@ -37,7 +40,11 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userId = this.userService.getUserId();
     if (this.post) {
+      if(userId && userId == this.post.ownerId) {
+        this.isPostOwner = true;
+      }
       this.getPostOwner(this.post.ownerId);
     }
   }
@@ -110,6 +117,23 @@ export class PostsComponent implements OnInit {
       this.seeComments = true;
     } else {
       this.seeComments = false;
+    }
+  }
+
+  deletePost() {
+    const userId = this.userService.getUserId();
+    if(userId) {
+      if(window.confirm(`Are you sure you want to Delete this post: ${this.post.title}`)) {
+        this.api.deletePost(userId, this.post.id).subscribe({
+          error: () => window.alert("Could not delete your post, please try again later"),
+          complete: () => {
+            window.alert("Post deleted successfully");
+            window.location.reload();
+          } 
+        })
+      }
+    } else {
+      window.alert("You have been logged out, please try again later");
     }
   }
 

@@ -9,10 +9,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Comment } from '../models/comment.model';
 import { UserService } from '../api/user.service';
+import { UpdatePostComponent } from '../../update-post/update-post.component';
 
 @Component({
   selector: 'app-post-details',
-  imports: [CommonModule, CommentsComponent, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, CommentsComponent, RouterModule, ReactiveFormsModule, UpdatePostComponent],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
 })
@@ -25,6 +26,8 @@ export class PostDetailsComponent implements OnInit {
   isCommenting: boolean = false;
   commentForm: FormGroup; 
   comments: any;
+  isPostOwner = false;
+  updatePost = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,6 +61,13 @@ export class PostDetailsComponent implements OnInit {
   }
   
   getPostOwner(ownerId: string): void {
+    const userId = this.userService.getUserId();
+    if(userId) {
+      if(userId == ownerId) {
+        this.isPostOwner = true;
+      }
+    }
+
     this.loading = true;
     this.api.getUsernameById(ownerId).subscribe({
       next: (response) => this.username = response,
@@ -101,6 +111,23 @@ export class PostDetailsComponent implements OnInit {
           this.getPostComments(this.postId);
           window.location.reload();
         }
+      }
+    }
+
+    deletePost() {
+      const userId = this.userService.getUserId();
+      if(userId) {
+        if(window.confirm(`Are you sure you want to Delete this post: ${this.post.title}`)) {
+          this.api.deletePost(userId, this.post.id).subscribe({
+            error: () => window.alert("Could not delete your post, please try again later"),
+            complete: () => {
+              window.alert("Post deleted successfully");
+              window.location.assign("/home");
+            } 
+          })
+        }
+      } else {
+        window.alert("You have been logged out, please try again later");
       }
     }
   

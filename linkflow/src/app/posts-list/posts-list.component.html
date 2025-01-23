@@ -1,7 +1,10 @@
 <div class="postsContainer">
     <div class="postInfo">
         <h2 class="userName" [routerLink]="['/userDetails', username]">{{username}}</h2>
-        <h5 class="time"> {{ post?.date | date: 'dd/MM/yyyy HH:mm' }}</h5>
+        <div>
+            <button *ngIf="isPostOwner" style="margin-bottom: 10px;" (click)="updatePost = !updatePost"> Update post</button>
+            <h5 class="time"> {{ post?.date | date: 'dd/MM/yyyy HH:mm' }}</h5>
+        </div>
     </div>
     <div class="postContent" [routerLink]="['/postDetails', post.id]">
         <div class="tagsContainer">
@@ -13,10 +16,15 @@
         <img *ngIf="post.photo" class="postImage" alt="Post photo" [src]="getFullImageUrl(post?.photo)"> 
         <p class="postText">{{ post?.text }}</p>
     </div>
-    <div class="postActions">
-        <button (click)="isCommenting = !isCommenting">Comment</button>
-        <button (click)="sharePost()">Share</button>
-        <button (click)="openComments()"> See Comments</button>
+    <div style="display: flex; justify-content: space-between;">
+        <div class="postActions">
+            <button (click)="isCommenting = !isCommenting">Comment</button>
+            <button (click)="sharePost()">Share</button>
+            <button (click)="openComments()"> See Comments</button>
+        </div>
+        <div *ngIf="isPostOwner" class="deletePost">
+            <button (click)="deletePost()"> Delete Post</button>
+        </div>
     </div>
     <div *ngIf="isCommenting" class="addComment">
         <form [formGroup]="commentForm" (ngSubmit)="addComment()">
@@ -29,4 +37,9 @@
             <app-comments [comment]="comment"></app-comments>
         </div>
     </div>
+</div>
+
+<div *ngIf="updatePost" class="formContainer">
+    <app-update-post [Post]="this.post"></app-update-post>
+    <button class="cancelButton" (click)="updatePost = !updatePost"> Cancel</button>
 </div>

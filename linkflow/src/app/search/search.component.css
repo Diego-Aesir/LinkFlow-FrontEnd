@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-name {
+    font-size: 1rem;
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.user-name:hover {
+    color: #2980b9;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.posts h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.post-title {
+    font-size: 1rem;
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.post-title:hover {
+    color: #2980b9;
+}
+
+.postsWTags {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.postsWTags h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.post-tag {
+    font-size: 1rem;
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.post-tag:hover {
+    color: #2980b9;
+}
+
+.no-results {
+    color: #e74c3c;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .user, .posts, .postsWTags {
+        gap: 15px;
+    }
+
+    .user h2, .posts h2, .postsWTags h2 {
+        font-size: 1rem;
+    }
+
+    .user-name, .post-title, .post-tag {
+        font-size: 0.9rem;
+    }
+
+    .no-results {
+        font-size: 0.9rem;
+    }
+}

@@ -7,7 +7,7 @@
     </div>
     <div class="postsContainer">
         <form [formGroup]="Search" (ngSubmit)="onSearch()">
-            <input type="text" id="searchInput" formControlName="searchInput" placeholder="Search anything" required/>
+            <input type="text" id="searchInput" formControlName="searchInput" placeholder="Search Posts, Tags or Users" required/>
         </form>
         <div *ngFor="let post of posts">
             <app-posts [post]="post"></app-posts>
@@ -23,7 +23,7 @@
 
           <div class="formBox">
             <label for="postText">Post Text</label>
-            <input type="text" id="postText" name="postText" [(ngModel)]="post.text" required />
+            <input type="text" id="postText" name="postText" [(ngModel)]="post.text" required/>
           </div>
         
           <div class="formBox">
@@ -43,7 +43,6 @@
             </div>
           </div>
           
-        
           <div class="formBox">
             <label for="photo">Post Photo</label>
             <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" />

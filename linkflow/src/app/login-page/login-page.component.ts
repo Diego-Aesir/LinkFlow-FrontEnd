@@ -41,7 +41,7 @@ export class LoginPageComponent implements OnInit {
 
       this.api.loginUser(formData).subscribe({
         next: (response) => this.response = response,
-        error: (err) => {window.alert(err)},
+        error: (err) => {window.alert("User not found")},
         complete: () => {
           this.userService.setUserId(this.response.id);
           this.auth.setToken(this.response.jwt);

@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(private api: ApiService, private auth: AuthService){
     if(auth.getToken()) {
       this.api.verifyJwt().subscribe({
-        error: (err) => {console.log(err); localStorage.clear(); window.location.reload();}
+        error: () => {localStorage.clear(); window.location.reload();}
       });
     }
   }

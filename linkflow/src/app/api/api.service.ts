@@ -87,7 +87,7 @@ export class ApiService {
     titles.forEach(title => {
       params = params.append("titles", title);
     })
-    return this.http.get(`${this.apiUrl}/${this.postBase}/recent/titles/${page}/${limit}`, {params});
+    return this.http.get(`${this.apiUrl}/${this.postBase}/recent/titles/${page}/${limit}`, { params });
   }
 
   updatePost(form: FormData, userId: string, postId: string) : Observable<any> {
