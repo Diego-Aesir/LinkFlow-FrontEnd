@@ -8,38 +8,32 @@ Acesse o Back-End aqui: https://github.com/Diego-Aesir/LinkFlow-BackEnd
 
 1. É necessária a configuração do Node e Angular.
 
-2. Clonar o repositório:
-   git clone https://github.com/Diego-Aesir/LinkFlow-FrontEnd.git
+2. Clonar o projeto. Pelo CMD digite:  
+   `git clone https://github.com/Diego-Aesir/LinkFlow-FrontEnd.git`
 
-3. Entrar na pasta LinkFlow-FrontEnd/linkflow/src.
+3. Entrar na pasta `LinkFlow-FrontEnd/linkflow/src`.
 
 4. Executar o comando no CMD:
-   npm install
+   `npm install`
 
 5. Executar o comando:
-   ng serve
+   `ng serve`
 
 6. Basta acessar a web pelo link:
-   http://localhost:4200
+   `http://localhost:4200`
 
 ---------------------
 O que você vai encontrar nesse website
 ---------------------
 
 ![HomePage](https://github.com/user-attachments/assets/620e1387-c446-4f3f-9245-7106abda31b7)
-Logo na página inicial, caso o BackEnd esteja em execução, você encontrará algumas postagens que já deixei pré-configuradas, como pode ser visto na imagem acima.
+Logo na página inicial, como o banco de dados estará vazio para você, será uma página em branco. No entanto, no exemplo acima, você pode observar como a página será quando houver uma postagem no website.
 
 ---------------------
 
 A partir daqui você não estará logado, mas sinta-se à vontade para registrar uma nova conta em seu nome.
 
 ![RegisterPage](https://github.com/user-attachments/assets/35b99c8b-e3a9-43dd-98ea-4b71590b75a7)
-
-Caso queira uma experiência rápida, simplesmente faça login com:
-
-User: Teste
-
-Password: 123qweasd!
 
 ---------------------
 
